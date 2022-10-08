@@ -17,7 +17,7 @@ connectDatabase();
 app.use(express.json({extended: false}));
 app.use(
     cors({
-        origin: 'http://localhost:5000'
+        origin: 'http://localhost:3000'
     })
 );
 
