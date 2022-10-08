@@ -3,7 +3,7 @@ import connectDatabase from './config/db';
 import { check, validationResult } from 'express-validator';
 import cors from 'cors';
 import bcrypt from 'bcryptjs';
-import User from '.models/User';
+import User from './models/User';
 
 //initialize express application
 const app = express();
@@ -15,7 +15,7 @@ connectDatabase();
 app.use(express.json({extended: false}));
 app.use(
     cors({
-        origin: 'http://localhost:3000'
+        origin: 'http://localhost:5000'
     })
 );
 
