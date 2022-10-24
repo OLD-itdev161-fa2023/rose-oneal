@@ -46,4 +46,47 @@ const Register = () => {
             }
         }
     }
+
+    return (
+        <div>
+            <h2>Register</h2>
+            <div>
+                <input
+                    type="text"
+                    placeholder="Name"
+                    name="name"
+                    value={name}
+                    onChange={e => onChange(e)} />
+            </div>
+            <div>
+                <input
+                    type="text"
+                    placeholder="Email"
+                    name="email"
+                    value={email}
+                    onChange={e => onChange(e)} />
+            </div>
+            <div>
+                <input
+                    type="text"
+                    placeholder="Password"
+                    name="password"
+                    value={password}
+                    onChange={e => onChange(e)} />
+            </div>
+            <div>
+                <input
+                    type="text"
+                    placeholder="Confirm Password"
+                    name="passwordConfirm"
+                    value={passwordConfirm}
+                    onChange={e => onChange(e)} />
+            </div>
+            <div>
+                <button onClick={() => register()}>Register</button>
+            </div>
+        </div>
+    )
 }
+
+export default Register
