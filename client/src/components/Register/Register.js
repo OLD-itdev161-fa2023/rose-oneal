@@ -2,22 +2,22 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const Register = () => {
-    const [useData, setUserData] = useState({
+    const [userData, setUserData] = useState({
         name: '',
         email: '',
         password: '',
         passwordConfirm: ''
     });
 
-    const { name, email, passowrd, passwordConfirm } = userData;
+    const { name, email, password, passwordConfirm } = userData;
 
     const onChange = e => {
         const { name, value } = e.target;
         setUserData({
             ...userData,
             [name]: value
-        })
-    }
+        });
+    };
 
     const register = async () => {
         if (password !== passwordConfirm) {
@@ -27,15 +27,15 @@ const Register = () => {
             const newUser = {
                 name: name,
                 email: email,
-                password: password
-            }
+                password: password,
+            };
 
             try {
                 const config = {
                     headers: {
-                        'Content-Type': 'application/json'
-                    }
-                }
+                        "Content-Type": "application/json",
+                    },
+                };
 
                 const body = JSON.stringify(newUser);
                 const res = await axios.post('http://localhost:5000/api/users', body, config);
@@ -45,7 +45,7 @@ const Register = () => {
                 return;
             }
         }
-    }
+    };
 
     return (
         <div>
@@ -56,7 +56,7 @@ const Register = () => {
                     placeholder="Name"
                     name="name"
                     value={name}
-                    onChange={e => onChange(e)} />
+                    onChange={(e) => onChange(e)} />
             </div>
             <div>
                 <input
@@ -64,7 +64,7 @@ const Register = () => {
                     placeholder="Email"
                     name="email"
                     value={email}
-                    onChange={e => onChange(e)} />
+                    onChange={(e) => onChange(e)} />
             </div>
             <div>
                 <input
@@ -72,7 +72,7 @@ const Register = () => {
                     placeholder="Password"
                     name="password"
                     value={password}
-                    onChange={e => onChange(e)} />
+                    onChange={(e) => onChange(e)} />
             </div>
             <div>
                 <input
@@ -80,13 +80,13 @@ const Register = () => {
                     placeholder="Confirm Password"
                     name="passwordConfirm"
                     value={passwordConfirm}
-                    onChange={e => onChange(e)} />
+                    onChange={(e) => onChange(e)} />
             </div>
             <div>
                 <button onClick={() => register()}>Register</button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Register
+export default Register;
