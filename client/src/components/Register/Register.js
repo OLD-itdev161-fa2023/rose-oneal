@@ -33,21 +33,27 @@ const register = async () => {
     try {
         const config = {
         headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
         },
         };
 
         const body = JSON.stringify(newUser);
-        const res = await axios.post(
-        "http://localhost:5000/api/users",
-        body,
-        config
-        );
-        console.log(res.data);
-    } catch (error) {
-        console.error(error.response.data);
-        return;
-    }
+        const res = await axios.post('http://localhost:5000/api/users', body, config);
+        
+            // Store user data and redirect
+            localStorage.setItem('token', res.data.token);
+            history.push('/');
+        } catch (error) {
+            // Clear user data and set errors
+            localStorage.removeItem('token');
+
+            setErrorData({
+                ...errors,
+                errors: error.response.data.errors
+            })
+        }
+
+        authenticateUser();
     }
 };
 
@@ -92,6 +98,10 @@ return (
     </div>
     <div>
         <button onClick={() => register()}>Register</button>
+    </div>
+    <div>
+        {errors && errors.map(error =>
+            <div key={error.msg}>{error.msg}</div>)}
     </div>
     </div>
 );
