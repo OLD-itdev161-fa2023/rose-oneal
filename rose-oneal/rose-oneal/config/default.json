@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://rosekoneal:CitrusSavage17!@cluster0.doli7qm.mongodb.net/?retryWrites=true&w=majority",
+    "jwtSecret": "maytheforcebewithyou"
+}
