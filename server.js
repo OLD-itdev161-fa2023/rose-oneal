@@ -6,6 +6,8 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from 'config';
 import User from './models/User';
+import Post from './models/Post';
+import auth from './middleware/auth';
 
 //initialize express application
 const app = express();
@@ -92,6 +94,55 @@ async (req, res) => {
     }
     
 });
+
+//Post endpoints
+
+/**
+ * @route Post api/posts
+ * @deasc Create post
+ */
+
+app.post(
+    '/api/posts',
+    [
+        auth,
+        [
+            check('title', 'Title text is required')
+                .not()
+                .isEmpty(),
+            check('body', 'Body text is required')
+                .not()
+                .isEmpty()
+        ]
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()){
+            res.status(400).json({ errors: errors.array() });
+        } else {
+            const { title, body } = req.body;
+            try {
+                //get the user who created the post
+                const user = await User.findById(req.user.id);
+
+                //create a new post
+                const post = new Post({
+                    user: user.id,
+                    title: title,
+                    body: body
+                });
+
+                //save the db and return
+                await post.save();
+
+                res.json(post);
+            } catch (error) {
+                console.error(error);
+                res.status(500).send('Server error');
+            }
+        }
+    }
+);
 
 //connection listener
 const port = 5000;
